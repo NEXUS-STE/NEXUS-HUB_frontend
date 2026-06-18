@@ -23,6 +23,9 @@ export default function LoginPage() {
     formState: { errors },
   } = useForm<LoginInput>({ resolver: zodResolver(loginSchema) })
 
+  const { onBlur: emailOnBlur, ...emailReg } = register('email')
+  const { onBlur: passwordOnBlur, ...passwordReg } = register('password')
+
   const onSubmit = async (data: LoginInput) => {
     setLoading(true)
     try {
@@ -169,8 +172,8 @@ export default function LoginPage() {
                     transition: 'border-color 0.15s',
                   }}
                   onFocus={(e) => { if (!errors.email) e.target.style.borderColor = '#00D4FF' }}
-                  onBlur={(e) => { if (!errors.email) e.target.style.borderColor = '#1E2D45' }}
-                  {...register('email')}
+                  onBlur={(e) => { emailOnBlur(e); if (!errors.email) e.target.style.borderColor = '#1E2D45' }}
+                  {...emailReg}
                 />
               </div>
               {errors.email && (
@@ -211,8 +214,8 @@ export default function LoginPage() {
                     transition: 'border-color 0.15s',
                   }}
                   onFocus={(e) => { if (!errors.password) e.target.style.borderColor = '#00D4FF' }}
-                  onBlur={(e) => { if (!errors.password) e.target.style.borderColor = '#1E2D45' }}
-                  {...register('password')}
+                  onBlur={(e) => { passwordOnBlur(e); if (!errors.password) e.target.style.borderColor = '#1E2D45' }}
+                  {...passwordReg}
                 />
               </div>
               {errors.password && (

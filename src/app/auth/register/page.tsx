@@ -65,6 +65,11 @@ export default function RegisterPage() {
     formState: { errors },
   } = useForm<RegisterInput>({ resolver: zodResolver(registerSchema) })
 
+  const { onBlur: nameOnBlur, ...nameReg } = register('name')
+  const { onBlur: emailOnBlur, ...emailReg } = register('email')
+  const { onBlur: passwordOnBlur, ...passwordReg } = register('password')
+  const { onBlur: confirmOnBlur, ...confirmReg } = register('confirmPassword')
+
   const onSubmit = async (data: RegisterInput) => {
     setLoading(true)
     try {
@@ -115,8 +120,8 @@ export default function RegisterPage() {
                 autoComplete="name"
                 style={inputStyle(!!errors.name)}
                 onFocus={(e) => { if (!errors.name) e.target.style.borderColor = '#00D4FF' }}
-                onBlur={(e) => { if (!errors.name) e.target.style.borderColor = '#1E2D45' }}
-                {...register('name')}
+                onBlur={(e) => { nameOnBlur(e); if (!errors.name) e.target.style.borderColor = '#1E2D45' }}
+                {...nameReg}
               />
             </Field>
 
@@ -127,8 +132,8 @@ export default function RegisterPage() {
                 autoComplete="email"
                 style={inputStyle(!!errors.email)}
                 onFocus={(e) => { if (!errors.email) e.target.style.borderColor = '#00D4FF' }}
-                onBlur={(e) => { if (!errors.email) e.target.style.borderColor = '#1E2D45' }}
-                {...register('email')}
+                onBlur={(e) => { emailOnBlur(e); if (!errors.email) e.target.style.borderColor = '#1E2D45' }}
+                {...emailReg}
               />
             </Field>
 
@@ -139,8 +144,8 @@ export default function RegisterPage() {
                 autoComplete="new-password"
                 style={inputStyle(!!errors.password)}
                 onFocus={(e) => { if (!errors.password) e.target.style.borderColor = '#00D4FF' }}
-                onBlur={(e) => { if (!errors.password) e.target.style.borderColor = '#1E2D45' }}
-                {...register('password')}
+                onBlur={(e) => { passwordOnBlur(e); if (!errors.password) e.target.style.borderColor = '#1E2D45' }}
+                {...passwordReg}
               />
             </Field>
 
@@ -151,8 +156,8 @@ export default function RegisterPage() {
                 autoComplete="new-password"
                 style={inputStyle(!!errors.confirmPassword)}
                 onFocus={(e) => { if (!errors.confirmPassword) e.target.style.borderColor = '#00D4FF' }}
-                onBlur={(e) => { if (!errors.confirmPassword) e.target.style.borderColor = '#1E2D45' }}
-                {...register('confirmPassword')}
+                onBlur={(e) => { confirmOnBlur(e); if (!errors.confirmPassword) e.target.style.borderColor = '#1E2D45' }}
+                {...confirmReg}
               />
             </Field>
 
